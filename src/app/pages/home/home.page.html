@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar *ngIf="!showSearchBar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Movies</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon (click)="showSearch()" slot="start" name="search"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="showSearchBar">
+    <ion-searchbar placeholder="Search film" (ionChange)="searchFilm()"[(ngModel)]="txtSearch" cancelButtonIcon="close-circle-outline" (ionCancel)="showSearch()" [debounce]="350" showCancelButton="always"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-fab vertical="bottom"  horizontal="center" slot="fixed">
+    <ion-fab-button [routerLink]="['/edit-film/0']" color="dark">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list class="list-custom" *ngIf="arrFilms.length != 0">
+
+    <ion-item-sliding class="item-custom"  *ngFor="let film of arrFilms">
+      <ion-item color="medium" [routerLink]="['/film',film._id]"  >
+      
+      
+          <img class="img-film" slot="start" [src]="(film.img |image: film._id ) | domSanitizer">
+       
+         
+      
+        <ion-label>
+         <h2 class="ion-text-wrap title-film">{{film.titulo}}</h2>
+          <p>{{film.descripcion}}</p>
+
+          <div class="ion-margin-top">
+            <h5>Rate:</h5>
+            {{film.puntaje}}/5
+            <ion-icon slot="icon-only" color="warning" name="star"></ion-icon>
+          </div>
+  
+       
+        
+          
+        </ion-label>
+      </ion-item>
+      <ion-item-options  side="end">
+        <ion-item-option class="item-opt-custom" [routerLink]="['/edit-film',film._id]" >Edit</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+ 
+
+
+  </ion-list>
+
+  <ion-label class="ion-text-center" *ngIf="arrFilms.length == 0">
+      <h1 class="no-movie-label">No movies for {{txtSearch}} </h1>
+  </ion-label>
+
+  <ion-infinite-scroll [disabled]="infDisabled" threshold="150px" (ionInfinite)="getFilmsPaginated($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

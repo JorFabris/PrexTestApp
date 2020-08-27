@@ -1,0 +1,65 @@
+
+.img-logo{
+    margin-top: 30%;
+    border-radius: 70%;
+    height: 150px;
+    width: auto;
+}
+
+.input-login{
+    margin-top: 20px;
+    border:solid 2.0px white;
+    text-align:center;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    height: 60px;
+    border-radius: 40px;
+}
+.input-login-error{
+    margin-top: 20px;
+    border:solid 2.0px red;
+    text-align:center;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    height: 60px;
+    border-radius: 40px;
+}
+
+
+.item-check{
+    background-color: transparent;
+    border-radius: 30px;
+}
+ion-button{
+    margin-top: 30px;
+    text-align:center;
+    text-transform: capitalize !important;
+    border-radius: 20px;
+}
+
+.item-background{
+    background-color: transparent !important;
+}
+
+.icon-eye{
+
+    font-size: 30px;
+    position: absolute;
+}
+.inputs-container{
+    margin: 0 auto;
+    max-width: 80%;
+}
+
+.inputs-container-register{
+    margin-top: 20% !important;
+    margin: 0 auto;
+    max-width: 80%;
+}
+
+.custom-label{
+    font-weight: bold;
+    font-size: 17px;
+}

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+    <ion-buttons slot="end">
+     
+     <ion-button (click)="presentActionSheet()">
+      <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+     </ion-button>
+  
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+
+  <h1>{{Film.titulo}}</h1>
+
+  <img class="img-custom"  [src]="(Film.img |image: Film._id ) | domSanitizer"alt="">
+
+  <ion-row>
+    <ion-col class="ion-text-start cont-text-rate" size="6">
+      <ion-label >
+        <h2>Rate: </h2>
+        {{Film.puntaje}}/5 
+        <ion-icon slot="icon-only" color="warning"name="star"></ion-icon>
+      </ion-label>
+      
+    </ion-col>
+    <ion-col class="ion-text-end cont-text" size="6">
+      <ion-label class="">
+        
+
+        {{Film.fecha_lanzamiento | date:'dd/MM/yyyy'}}
+      </ion-label>
+
+      
+    </ion-col>
+    <ion-col size="12" class="ion-text-justify ion-padding">
+      <p >
+        {{Film.descripcion}}
+      </p>
+    
+      
+    </ion-col>
+  </ion-row>
+
+</ion-content>

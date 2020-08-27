@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+import { UserService } from './services/user.service';
+import { Subscription } from 'rxjs';
+import { Plugins,StatusBarStyle } from '@capacitor/core';
+
 
 @Component({
   selector: 'app-root',
@@ -13,55 +16,54 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/folder/Inbox',
-      icon: 'mail'
-    },
-    {
-      title: 'Outbox',
-      url: '/folder/Outbox',
-      icon: 'paper-plane'
+      title: 'Home',
+      url: '/home',
+      icon: 'home'
     },
     {
       title: 'Favorites',
-      url: '/folder/Favorites',
-      icon: 'heart'
+      url: '/favorites',
+      icon: 'star'
     },
-    {
-      title: 'Archived',
-      url: '/folder/Archived',
-      icon: 'archive'
-    },
-    {
-      title: 'Trash',
-      url: '/folder/Trash',
-      icon: 'trash'
-    },
-    {
-      title: 'Spam',
-      url: '/folder/Spam',
-      icon: 'warning'
-    }
+ 
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  isLogged:boolean = false;
+  userSubscription: Subscription;
+  
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private userService:UserService
   ) {
     this.initializeApp();
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
+  async initializeApp() {
+    const { SplashScreen, StatusBar } = Plugins;
+    try {
+      await SplashScreen.hide();
+      await StatusBar.setStyle({ style: StatusBarStyle.Dark });
+  
+      if (this.platform.is('android')) {
+        StatusBar.setBackgroundColor({ color: '#1C1C1C' });
+      }
+    } catch (err) {
+      console.log('This is normal in a browser', err);
+    }
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
+    
+
+
+    this.userSubscription = this.userService.returnUserObservable()
+      .subscribe(data => {
+        this.isLogged = data.isLogged;
+      })
+
+    this.userService.getUser();
+    const path = window.location.pathname.split('/')[1];
+    console.log(path);
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }

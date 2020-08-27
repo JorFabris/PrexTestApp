@@ -1,0 +1,47 @@
+
+.item-custom{
+    border-radius: 20px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  
+   
+
+}
+
+.title-film{
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    
+}
+
+
+.img-film{
+    width:100% ;
+    max-width: 170px;
+    height: 160px;
+    margin-left: -15px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.item-opt-custom{
+    border-radius: 0px 20px 20px 0px;
+    min-width:100px ;
+    font-size: 22px;
+    text-transform: capitalize;
+    background-color:slateblue;
+}
+
+.no-movie-label{
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 150px;
+}
+
+.list-custom{
+    background-color: transparent;
+   
+}

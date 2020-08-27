@@ -1,0 +1,198 @@
+<ion-content>
+
+  <ion-slides #slidePrin>
+
+    <ion-slide>
+      <div class="slide">
+
+        <ion-img class="img-logo" src="assets/images/film-logo.jpg"></ion-img>
+
+        <form (ngSubmit)="login(fLogin)" #fLogin="ngForm" action="">
+
+          <ion-row class="inputs-container">
+
+            <ion-col size="12">
+              <ion-input class="input-login"
+               name="emailLog"
+               [(ngModel)]="userLogin.email"  
+              type="email" 
+              placeholder="Email" 
+              required></ion-input>
+            </ion-col>
+
+            <ion-col size="12">
+
+              <ion-input
+               class="input-login" 
+               name="passwordLog" 
+               [(ngModel)]="userLogin.password"  
+               [type]="typeInput" 
+               placeholder="Password" 
+               required></ion-input>
+
+              <div style="margin-top: 10px; vertical-align: middle; margin-left: 10px;">
+
+                <ion-item class="item-check">
+                  <ion-checkbox (ionChange)="showPassword()" slot="start"></ion-checkbox>
+                  <ion-label>Show password</ion-label>
+                </ion-item>
+              </div>
+
+
+
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-button [disabled]="fLogin.invalid" type="submit" shape="round" color="danger" size="large" expand="block">LOGIN</ion-button>
+            </ion-col>
+
+            <ion-col class="ion-text-center" size="12">
+              <div class="ion-activatable ripple-parent" (click)="changeSlide(1)">
+                <ion-label class="custom-label">Create an account</ion-label>
+                <ion-ripple-effect></ion-ripple-effect>
+              </div>
+
+            </ion-col>
+
+
+          </ion-row>
+
+
+
+        </form>
+
+
+
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+
+      <form (ngSubmit)="register()" [formGroup]="userForm" >
+
+        <ion-row class="inputs-container-register">
+
+          <ion-col class="ion-text-center" size="12">
+            <ion-input
+            formControlName="nombre" 
+            #nombre
+            id="nombre"
+            [ngClass]="{'input-login-error': submitted && f.nombre.errors}"
+             class="input-login" type="text" placeholder="Name" required></ion-input>
+             <div style="padding: 10px;" *ngIf="submitted && f.nombre.errors">
+               <ion-label color="danger">
+                 Name is required *
+               </ion-label>
+             </div>
+          </ion-col>
+  
+          <ion-col class="ion-text-center" size="12">
+            <ion-input 
+            formControlName="apellido" 
+            #apellido
+            id="apellido"
+            [ngClass]="{'input-login-error': submitted && f.apellido.errors}"
+            class="input-login" type="text" placeholder="Last name" required></ion-input>
+            <div style="padding: 10px;" *ngIf="submitted && f.apellido.errors">
+              <ion-label color="danger">
+                Last name is required *
+              </ion-label>
+            </div>
+          </ion-col>
+  
+          <ion-col class="ion-text-center" size="12">
+            <ion-input 
+            formControlName="email" 
+            #email
+            id="email"
+            [ngClass]="{'input-login-error': submitted && f.email.errors}"
+            class="input-login" type="email" placeholder="Email" required></ion-input>
+            <div style="padding: 10px;" *ngIf="submitted && f.email.errors">
+              <ion-label color="danger">
+                Email is required *
+              </ion-label>
+            </div>
+          </ion-col>
+  
+          <ion-col size="12">
+  
+            <ion-input
+            formControlName="password" 
+            #password
+            id="password"
+            [ngClass]="{'input-login-error': submitted && f.password.errors || passwordValidation.ok === false}"
+             class="input-login" type="password" placeholder="Password" required></ion-input>
+  
+             <div style="padding: 10px;" *ngIf="submitted && f.password.errors">
+              <ion-label color="danger">
+                Password is required *
+              </ion-label>
+            </div>
+            <div style="padding: 10px;" *ngIf="submitted && passwordValidation.ok === false">
+              <ion-label color="danger">
+                {{passwordValidation.msg}} *
+              </ion-label>
+            </div>
+          </ion-col>
+  
+          <ion-col size="12">
+  
+            <ion-input 
+            formControlName="password2" 
+            #password2
+            id="password2"
+            [ngClass]="{'input-login-error': submitted && f.password2.errors || passwordValidation.ok === false}"
+            class="input-login" type="password" placeholder="Repeat password" required></ion-input>
+  
+            <div style="padding: 10px;" *ngIf="submitted && f.password2.errors">
+              <ion-label color="danger">
+                Repeat password is required *
+              </ion-label>
+            </div>
+            <div style="padding: 10px;" *ngIf="submitted && passwordValidation.ok === false">
+              <ion-label color="danger">
+                {{passwordValidation.msg}} *
+              </ion-label>
+            </div>
+          </ion-col>
+  
+          <ion-col size="12">
+            <ion-button type="submit" shape="round" color="danger" size="large" expand="block">REGISTER</ion-button>
+          </ion-col>
+  
+          <ion-col class="ion-text-center" size="12">
+            <div class="ion-activatable ripple-parent" (click)="changeSlide(0)">
+              <ion-label class="custom-label">Have an account?</ion-label>
+              <ion-ripple-effect></ion-ripple-effect>
+            </div>
+  
+          </ion-col>
+  
+  
+        </ion-row>
+
+      </form>
+
+
+    </ion-slide>
+
+
+
+
+  </ion-slides>
+
+
+
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-col class="ion-text-center" size="12">
+      <div class="ion-activatable ripple-parent">
+        <ion-label class="custom-label">Forgot password?</ion-label>
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+
+    </ion-col>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center">
+    <ion-buttons slot="start">
+        <ion-icon slot="icon-only" (click)="goBack()" name="arrow-back-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title *ngIf="idFilm === '0'">Add film</ion-title>
+    <ion-title *ngIf="idFilm != '0'">Edit film</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides #slideCreateFilm>
+    <ion-slide>
+     <!-- Form para agregar y editar una pelicula -->
+  <form [formGroup]="filmForm" (ngSubmit)="createFilm()">
+
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12">
+          <ion-input 
+          formControlName="titulo" 
+          #titulo
+          id="titulo"
+          [ngClass]="{'input-error': submitted && f.titulo.errors}"
+          class="input-film"
+          placeholder="Title" 
+  
+         type="text" 
+         
+         required></ion-input>
+         <div style="padding:10px;" *ngIf="submitted && f.titulo.errors">
+           <ion-label color="danger" >Title is required *</ion-label>
+         </div>
+         
+        </ion-col>
+        <ion-col size="12">
+          <ion-item
+           [ngClass]="{'select-error': submitted && f.puntaje.errors}" 
+          class="select">
+            <ion-label>Rate</ion-label>
+            <ion-select style="padding:20px;" formControlName="puntaje" multiple="false" placeholder="Select rate" required>
+              <ion-select-option [value]="rate" *ngFor="let rate of arrRates">{{rate}}</ion-select-option>
+           
+            </ion-select>
+          </ion-item>
+          <div style="padding:10px;" *ngIf="submitted && f.puntaje.errors">
+            <ion-label color="danger" >Rate is required *</ion-label>
+          </div>
+        </ion-col>
+        <ion-col size="12">
+  
+          <ion-item 
+          [ngClass]="{'select-error': submitted && f.fecha_lanzamiento.errors}" 
+          class="select">
+            <ion-label position="floating">Release date</ion-label>
+            <ion-datetime  displayFormat="DD/MM/YYYY" formControlName="fecha_lanzamiento"  required></ion-datetime>
+          </ion-item>
+          <div style="padding:10px;" *ngIf="submitted && f.fecha_lanzamiento.errors">
+            <ion-label color="danger" >Release date is required *</ion-label>
+          </div>
+        </ion-col>
+  
+        <ion-col size="12">
+          <ion-item 
+          [ngClass]="{'text-area-error': submitted && f.descripcion.errors}" 
+          class="text-area">
+            <ion-textarea  rows="6" formControlName="descripcion"  placeholder="Enter description here..." required></ion-textarea>
+          </ion-item>
+  
+          <div style="padding:10px;" *ngIf="submitted && f.descripcion.errors">
+            <ion-label color="danger" >Description is required *</ion-label>
+          </div>
+          
+        </ion-col>
+  
+        <ion-col size="12">
+  
+          <ion-button class="btn-send"  *ngIf="idFilm === '0'"
+          type="submit" color="tertiary" expand="block" size="large" >Next step</ion-button>
+          
+        </ion-col>
+        
+        <ion-col size="12">
+  
+          <ion-button  *ngIf="idFilm != '0'" class="btn-send" type="submit" color="tertiary" expand="block" size="large" >Update film</ion-button>
+          
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+  </form>
+  
+    </ion-slide>
+
+    <ion-slide >
+      <ion-row class="ion-align-items-center">
+        <!-- Botón para poder subir la IMG -->
+        <ion-col size="12"> 
+          <ion-button class="btn-send" (click)="camara()" color="tertiary" expand="block" size="large" >
+          <ion-icon slot="end" name="save"></ion-icon>
+          Upload image
+        </ion-button>
+     
+      </ion-col>
+      <ion-col size="12">
+          <img [src]="imgSelected | domSanitizer" alt="">
+      </ion-col>
+      </ion-row>
+     
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
